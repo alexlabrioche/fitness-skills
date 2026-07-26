@@ -52,6 +52,9 @@ Structure.
   `exercise_calories_out` from activity. Do not present basal metabolic rate,
   total daily energy expenditure, or net balance unless the user provided enough
   profile/context or explicitly asked.
+- Store dataviz-oriented values in calculable numeric fields. For example, pace
+  goes in `pace_sec_per_km`; `6:20/km` can appear in the Markdown body for
+  readability, but not as the only stored value.
 - If updating an existing Daily Note, preserve existing content unless the user
   asks to replace or reorganize it.
 - Keep the tone neutral, concise, and useful.

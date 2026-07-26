@@ -21,7 +21,8 @@ activities:
   - type: run
     distance_km: 9
     duration_min: unknown
-    pace: unknown
+    pace_sec_per_km: unknown
+    speed_kmh: unknown
     heart_rate_bpm: unknown
     rpe: unknown
 meals:
@@ -122,15 +123,36 @@ are logged as cooked weight unless stated otherwise, do not keep
 ## Dataview-Friendly Guidance
 
 - Put stable, queryable facts in frontmatter when they are known.
+- Every field intended for future dataviz should be calculable. Store numeric
+  values as numbers, not display strings.
 - Use prose in the body for readability, not as the only place important values
   live.
 - Prefer numeric values with dot decimals in frontmatter, for example
   `weight_kg: 77.6`.
+- Store pace as `pace_sec_per_km`, not `"6:20/km"`. Display `6:20/km` in the
+  Markdown table if useful for humans.
+- Store speed as `speed_kmh` when useful. It can be derived from distance and
+  duration, but storing it is acceptable when it helps dashboards stay simple.
 - Prefer `*_min` and `*_max` fields for uncertain numeric ranges.
 - Use `estimated` flags for inferred values.
 - Use `Optional Questions` task lines only for unresolved fields that the user
   can answer later.
 - Keep the format adaptable. Do not force every user to track every field.
+
+## Numeric Field Conventions
+
+- Distances: kilometers as numbers, e.g. `distance_km: 9`.
+- Durations: minutes as numbers, e.g. `duration_min: 57`.
+- Pace: seconds per kilometer as a number, e.g. `pace_sec_per_km: 380` for
+  `6:20/km`.
+- Speed: kilometers per hour as a number, e.g. `speed_kmh: 9.47`.
+- Heart rate: beats per minute as a number, e.g. `heart_rate_bpm: 145`.
+- RPE: number on the user's chosen scale, usually 1-10.
+- Calories: kcal as numbers, using `_min` and `_max` for ranges.
+- Weight: kilograms as a number, e.g. `weight_kg: 77.6`.
+
+Human-readable strings like `6:20/km`, `57 min`, or `77.6 kg` belong in Markdown
+tables or prose, not as the only queryable value.
 
 ## Clarification Guidance
 

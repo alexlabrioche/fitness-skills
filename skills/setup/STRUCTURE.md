@@ -87,6 +87,10 @@ date: YYYY-MM-DD
 ---
 ```
 
+Daily note frontmatter should store future dataviz values as numbers with units
+in the field name, not display strings. Example: use `pace_sec_per_km: 380` for
+a `6:20/km` pace.
+
 Meal Notes:
 
 ```text
