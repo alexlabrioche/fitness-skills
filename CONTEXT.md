@@ -13,8 +13,12 @@ The `skills/setup/` skill that initializes the user's local fitness note structu
 _Avoid_: setup-fitness, installer app
 
 **Fitness Note Structure**:
-The local Markdown structure initialized by the Setup Skill: `Fitness/`, with `Daily/`, `Meals/`, `Reviews/`, `Templates/`, `Dashboards/`, `User Profile.md`, and `Fitness Index.md`. MVP skills read from and write to this structure.
+The local Markdown structure initialized by the Setup Skill: `Fitness/`, with `Daily/`, `Meals/`, `Reviews/`, `Templates/`, `Dashboards/`, `Fitness Skills.md`, `User Profile.md`, and `Fitness Index.md`. MVP skills read from and write to this structure.
 _Avoid_: app database, mandatory Obsidian vault
+
+**Fitness Skills Manifest**:
+The `Fitness Skills.md` note that records the local structure version and setup migration log for a user's vault. Setup uses it to rerun safely across version upgrades.
+_Avoid_: package lockfile, destructive migration script
 
 **User Profile**:
 A local Markdown note for explicit, stable user defaults that make future Fitness Skills more adaptive, such as preferred units or whether common foods are logged cooked or dry. It stores confirmed habits, not guesses from a single note.
