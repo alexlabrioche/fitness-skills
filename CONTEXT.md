@@ -24,6 +24,10 @@ _Avoid_: hidden memory, inferred personal profile
 A Markdown note named with a stable date-based convention and minimal YAML frontmatter so notes are readable by humans and queryable by tools like Dataview. Daily notes use `YYYY-MM-DD.md`, meal notes use `YYYY-MM-DD-<meal>.md`, and weekly reviews use `YYYY-Www.md`.
 _Avoid_: free-form filename, opaque generated id
 
+**Calculable Field**:
+A frontmatter field intended for Dataview, charts, or later analysis. Calculable fields use predictable types and units in the field name, such as `weight_kg`, `duration_min`, `pace_sec_per_km`, or `calories_in_kcal_min`. Human display strings like `6:20/km` or `77.6 kg` belong in Markdown prose or tables, not as the only stored value.
+_Avoid_: unit-bearing string, unknown numeric placeholder
+
 **Daily Skill**:
 The `skills/daily/` skill that turns a user's free-form daily fitness/nutrition note into structured Markdown compatible with the local note structure.
 _Avoid_: daily-log

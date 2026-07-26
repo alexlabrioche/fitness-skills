@@ -35,6 +35,8 @@ Structure.
    estimates only when useful, and label them as estimated with uncertainty.
 10. **Capture stable habits**: when the user states a durable logging default,
     ask whether to save it to `Fitness/User Profile.md`.
+11. **Normalize calculable fields**: put machine-readable values in frontmatter
+    and human-readable display strings in the Markdown body.
 
 ## Rules
 
@@ -55,6 +57,12 @@ Structure.
 - Store dataviz-oriented values in calculable numeric fields. For example, pace
   goes in `pace_sec_per_km`; `6:20/km` can appear in the Markdown body for
   readability, but not as the only stored value.
+- Do not put display strings in dataviz frontmatter fields. Avoid values like
+  `"6:20/km"`, `"77.6 kg"`, `"57 min"`, or `"145 bpm"` in frontmatter.
+- Use field names to carry units, such as `_kg`, `_km`, `_min`,
+  `_sec_per_km`, `_bpm`, and `_kcal`.
+- Omit unknown numeric fields from frontmatter and list the gap in
+  `missing_info`; do not store `"unknown"` in a numeric field.
 - If updating an existing Daily Note, preserve existing content unless the user
   asks to replace or reorganize it.
 - Keep the tone neutral, concise, and useful.
