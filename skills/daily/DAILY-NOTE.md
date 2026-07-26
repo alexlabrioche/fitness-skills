@@ -129,8 +129,11 @@ possible, such as `sleep`, `energy`, `mood_stress`, `recovery_feel`,
 
 ## Clarification Guidance
 
-Before drafting, ask for the smallest set of missing details that would change
-the note materially. Examples:
+Before drafting, ask one clarification question at a time. Use the format from
+`SKILL.md` and wait for the user's answer before asking another question or
+writing the note.
+
+Choose questions by leverage, not by checklist coverage. Examples:
 
 - For a run: duration, pace, average heart rate, perceived effort, or elevation
   if relevant.
@@ -140,5 +143,6 @@ the note materially. Examples:
   rate, or device-reported calories if the user has them.
 - For recovery: sleep duration, energy, soreness, stress, mood, or recovery feel.
 
-Do not block forever. If the user skips the questions, write the note with
-`unknown`, ranges, and `estimated` flags.
+Do not block forever. Ask at most three clarification questions. If the user
+answers `skip` or `done`, write the note with `unknown`, ranges, `estimated`
+flags, `missing_info`, and unresolved `Optional Questions` as appropriate.
