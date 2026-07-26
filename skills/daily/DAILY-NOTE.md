@@ -14,15 +14,38 @@ Use standalone Markdown with the same shape when the structure is unavailable.
 ---
 type: daily
 date: YYYY-MM-DD
+weight_kg: 77.6
+energy_level: unknown
+sleep_hours: unknown
+activities:
+  - type: run
+    distance_km: 9
+    duration_min: unknown
+    pace: unknown
+    heart_rate_bpm: unknown
+    rpe: unknown
+meals:
+  - name: breakfast
+    note: "[[YYYY-MM-DD-breakfast]]"
+calories_in_kcal_min: unknown
+calories_in_kcal_max: unknown
+exercise_calories_out_kcal_min: unknown
+exercise_calories_out_kcal_max: unknown
+estimated:
+  calories_in: true
+  exercise_calories_out: true
 missing_info:
   - optional_field_key
 ---
 ```
 
-Use `missing_info` for useful unresolved gaps. Keep keys stable and queryable
-when possible, such as `sleep`, `energy`, `mood_stress`, `recovery_feel`,
-`run_duration`, `run_pace`, `run_heart_rate`, or `run_feel`. Omit
-`missing_info` when there are no useful gaps.
+Use only fields that fit the user's data. Omit unknown frontmatter fields when
+they would create clutter, except `missing_info` when useful gaps remain.
+
+Use `missing_info` for unresolved gaps. Keep keys stable and queryable when
+possible, such as `sleep`, `energy`, `mood_stress`, `recovery_feel`,
+`run_duration`, `run_pace`, `run_heart_rate`, `run_feel`, `meal_portions`,
+`body_weight`, or `calorie_context`.
 
 ## Shape
 
@@ -33,14 +56,30 @@ when possible, such as `sleep`, `energy`, `mood_stress`, `recovery_feel`,
 
 - One to three bullets summarizing the day from provided facts.
 
+## Body Metrics
+
+| Metric | Value | Source |
+| --- | ---: | --- |
+| Weight | 77.6 kg | provided |
+
 ## Activity
 
-- Training, movement, or exercise details the user provided.
+| Type | Distance | Duration | Pace | HR | RPE | Notes |
+| --- | ---: | ---: | --- | ---: | ---: | --- |
+| run | 9 km | unknown | unknown | unknown | unknown | Provided facts only. |
 
 ## Nutrition
 
-- Day-level nutrition summary from provided facts.
-- Linked Meal Notes when relevant: [[YYYY-MM-DD-lunch]]
+| Meal | Contents | Linked note |
+| --- | --- | --- |
+| breakfast | Foods the user provided. | [[YYYY-MM-DD-breakfast]] |
+
+## Energy Estimate
+
+| Metric | Estimate | Confidence | Basis |
+| --- | ---: | --- | --- |
+| Calories in | unknown | missing | Meal analysis not detailed enough. |
+| Exercise calories out | unknown | missing | Activity details not detailed enough. |
 
 ## Recovery
 
@@ -52,7 +91,7 @@ when possible, such as `sleep`, `energy`, `mood_stress`, `recovery_feel`,
 
 ## Optional Questions
 
-- [ ] A concise question for the user. [field:: field_key] [optional:: true]
+- [ ] A concise skipped question for the user. [field:: field_key] [optional:: true]
 ```
 
 ## Section Rules
@@ -61,22 +100,45 @@ when possible, such as `sleep`, `energy`, `mood_stress`, `recovery_feel`,
   important gaps affect the usefulness of the note.
 - Use `Not provided` only when a field is expected by the user or relevant to the
   request. Do not create a checklist of every possible fitness variable.
-- Add `Optional Questions` when useful missing details should be asked. These are
-  not requirements; they are prompts the user can answer later.
-- Ask the same optional questions in chat after producing the note. If the user
-  answers, update the note and remove resolved questions.
+- Ask useful optional questions in chat before drafting. Add `Optional Questions`
+  to the note only for useful questions the user skipped or left unresolved.
 - Link Meal Notes with wikilinks when the meal is known. Do not invent meal note
   filenames for meals that were not mentioned.
 - Keep nutrition at summary level. Detailed protein, carbohydrate, fat, and
   fiber analysis belongs in the Meal Analysis Skill.
+- Put meals in a table instead of prose when the user provided enough detail.
+- Put activity in a table instead of prose when the user provided structured
+  details.
+- Put calorie estimates in `Energy Estimate`, separated into calories in and
+  exercise calories out. Use ranges and confidence. Use `unknown` when the input
+  is too thin.
+- Never calculate net balance unless the user asks and enough context exists.
 
 ## Dataview-Friendly Guidance
 
 - Put stable, queryable facts in frontmatter when they are known.
-- Use dotted prose in the body for readability, not as the only place important
-  values live.
+- Use prose in the body for readability, not as the only place important values
+  live.
 - Prefer numeric values with dot decimals in frontmatter, for example
   `weight_kg: 77.6`.
-- Use `Optional Questions` task lines for unresolved fields that the user can
-  answer later.
+- Prefer `*_min` and `*_max` fields for uncertain numeric ranges.
+- Use `estimated` flags for inferred values.
+- Use `Optional Questions` task lines only for unresolved fields that the user
+  can answer later.
 - Keep the format adaptable. Do not force every user to track every field.
+
+## Clarification Guidance
+
+Before drafting, ask for the smallest set of missing details that would change
+the note materially. Examples:
+
+- For a run: duration, pace, average heart rate, perceived effort, or elevation
+  if relevant.
+- For calorie intake: portion sizes, cooking fat, brands, sauces, drinks, or
+  whether the user wants calories estimated at all.
+- For calorie output: activity duration, body weight if absent, intensity, heart
+  rate, or device-reported calories if the user has them.
+- For recovery: sleep duration, energy, soreness, stress, mood, or recovery feel.
+
+Do not block forever. If the user skips the questions, write the note with
+`unknown`, ranges, and `estimated` flags.

@@ -29,8 +29,12 @@ A Dated Fitness Note under `Fitness/Daily/` that summarizes a day and links to d
 _Avoid_: meal detail note, all-in-one nutrition log
 
 **Optional Follow-Up**:
-A question the agent asks when missing information would materially improve a note or later review, without making the answer mandatory. Optional Follow-Ups should be adapted to the user's actual note and tracked in queryable Markdown when useful.
+A question the agent asks before drafting when missing information would materially improve a note, calorie estimate, or later review, without making the answer mandatory. Optional Follow-Ups should be adapted to the user's actual note and tracked in queryable Markdown when still unresolved.
 _Avoid_: required form field, generic checklist
+
+**Energy Estimate**:
+A clearly marked calorie estimate in a Daily Note that separates calories in from food and exercise calories out from activity. It should use ranges, confidence, and estimated flags when inputs are incomplete.
+_Avoid_: exact calorie balance, hidden TDEE assumption
 
 **Meal Note**:
 A Dated Fitness Note under `Fitness/Meals/` that captures one meal's details and nutrition analysis. Meal notes can be linked from Daily Notes.
