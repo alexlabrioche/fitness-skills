@@ -13,8 +13,12 @@ The `skills/setup/` skill that initializes the user's local fitness note structu
 _Avoid_: setup-fitness, installer app
 
 **Fitness Note Structure**:
-The local Markdown structure initialized by the Setup Skill: `Fitness/`, with `Daily/`, `Meals/`, `Reviews/`, `Templates/`, `Dashboards/`, and `Fitness Index.md`. MVP skills read from and write to this structure.
+The local Markdown structure initialized by the Setup Skill: `Fitness/`, with `Daily/`, `Meals/`, `Reviews/`, `Templates/`, `Dashboards/`, `User Profile.md`, and `Fitness Index.md`. MVP skills read from and write to this structure.
 _Avoid_: app database, mandatory Obsidian vault
+
+**User Profile**:
+A local Markdown note for explicit, stable user defaults that make future Fitness Skills more adaptive, such as preferred units or whether common foods are logged cooked or dry. It stores confirmed habits, not guesses from a single note.
+_Avoid_: hidden memory, inferred personal profile
 
 **Dated Fitness Note**:
 A Markdown note named with a stable date-based convention and minimal YAML frontmatter so notes are readable by humans and queryable by tools like Dataview. Daily notes use `YYYY-MM-DD.md`, meal notes use `YYYY-MM-DD-<meal>.md`, and weekly reviews use `YYYY-Www.md`.

@@ -9,6 +9,7 @@ Fitness/
 |-- Reviews/
 |-- Templates/
 |-- Dashboards/
+|-- User Profile.md
 `-- Fitness Index.md
 ```
 
@@ -35,6 +36,41 @@ Create `Fitness Index.md` only when it does not already exist:
 - Use the Meal Analysis Skill for detailed meal notes.
 - Use the Weekly Review Skill for weekly summaries.
 ```
+
+Create `User Profile.md` only when it does not already exist:
+
+```markdown
+---
+type: user-profile
+---
+
+# User Profile
+
+## Logging Defaults
+
+- Lentils weight: unknown
+- Rice weight: unknown
+- Pasta weight: unknown
+- Preferred units: metric
+
+## Nutrition Defaults
+
+- Calorie estimates: ask first
+- Cooking oil: ask when relevant
+
+## Activity Defaults
+
+- Running intensity labels: user-defined
+
+## Notes
+
+- Add stable habits only when the user explicitly confirms them.
+```
+
+The User Profile stores stable user habits that prevent repeated clarification
+questions. Examples: "lentils are always cooked weight", "rice is cooked weight
+unless stated otherwise", or "use metric units". Do not infer a permanent
+default from one log entry.
 
 ## Dated Fitness Notes
 

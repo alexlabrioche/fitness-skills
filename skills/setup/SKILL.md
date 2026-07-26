@@ -31,5 +31,8 @@ Reviews, or check whether an existing folder already matches the expected shape.
 - Keep Obsidian and Dataview optional. Wikilinks and YAML frontmatter are
   allowed because plain Markdown readers still show them as text.
 - Use Dated Fitness Note conventions from [STRUCTURE.md](STRUCTURE.md).
+- Create `User Profile.md` from [STRUCTURE.md](STRUCTURE.md) so other Skills can
+  remember confirmed logging defaults. Add a default only when the user
+  explicitly confirms it.
 - If a file exists with different content, leave it alone and tell the user what
   would be changed rather than editing it.

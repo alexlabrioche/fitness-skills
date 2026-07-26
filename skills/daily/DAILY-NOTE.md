@@ -47,6 +47,11 @@ possible, such as `sleep`, `energy`, `mood_stress`, `recovery_feel`,
 `run_duration`, `run_pace`, `run_heart_rate`, `run_feel`, `meal_portions`,
 `body_weight`, or `calorie_context`.
 
+Do not include a key in `missing_info` when the value is covered by a confirmed
+default in `Fitness/User Profile.md`. For example, if the profile says lentils
+are logged as cooked weight unless stated otherwise, do not keep
+`lentils_cooked_or_dry` open.
+
 ## Shape
 
 ```markdown
@@ -133,6 +138,9 @@ Before drafting, ask one clarification question at a time. Use the format from
 `SKILL.md` and wait for the user's answer before asking another question or
 writing the note.
 
+Read `Fitness/User Profile.md` first when it exists. User Profile defaults answer
+clarification questions only when they directly cover the current ambiguity.
+
 Choose questions by leverage, not by checklist coverage. Examples:
 
 - For a run: duration, pace, average heart rate, perceived effort, or elevation
@@ -146,3 +154,6 @@ Choose questions by leverage, not by checklist coverage. Examples:
 Do not block forever. Ask at most three clarification questions. If the user
 answers `skip` or `done`, write the note with `unknown`, ranges, `estimated`
 flags, `missing_info`, and unresolved `Optional Questions` as appropriate.
+
+When the user gives a durable default, ask whether to save it to
+`Fitness/User Profile.md`. Example: "I usually give lentils cooked weight."

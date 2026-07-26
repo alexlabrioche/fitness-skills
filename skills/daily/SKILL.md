@@ -18,19 +18,23 @@ Structure.
    use today's date and say so. If the date is ambiguous, ask.
 2. **Find the target**: prefer `Fitness/Daily/YYYY-MM-DD.md` when the Fitness
    Note Structure exists. If it does not, produce standalone Markdown.
-3. **Preserve facts**: only treat details as facts when the user provided them
+3. **Read user defaults**: if `Fitness/User Profile.md` exists, read its logging
+   defaults before asking clarifying questions.
+4. **Preserve facts**: only treat details as facts when the user provided them
    or they already exist in the note being updated.
-4. **Clarify before writing**: before drafting the note, run the Clarification
+5. **Clarify before writing**: before drafting the note, run the Clarification
    Loop below for missing details that materially affect the Daily Note, later
    Weekly Review, or calorie estimates.
-5. **Respect skipped answers**: if the user skips or cannot answer, stop asking
+6. **Respect skipped answers**: if the user skips or cannot answer, stop asking
    that branch, continue with the facts available, and mark unresolved fields in
    the note.
-6. **Structure the day**: write the Daily Note using [DAILY-NOTE.md](DAILY-NOTE.md).
-7. **Link meals lightly**: link to Meal Notes when they are mentioned or already
+7. **Structure the day**: write the Daily Note using [DAILY-NOTE.md](DAILY-NOTE.md).
+8. **Link meals lightly**: link to Meal Notes when they are mentioned or already
    exist, but do not perform detailed Meal Analysis here.
-8. **Mark estimates**: include calories in, exercise calories out, or other
+9. **Mark estimates**: include calories in, exercise calories out, or other
    estimates only when useful, and label them as estimated with uncertainty.
+10. **Capture stable habits**: when the user states a durable logging default,
+    ask whether to save it to `Fitness/User Profile.md`.
 
 ## Rules
 
@@ -42,6 +46,8 @@ Structure.
 - Missing information is not required, but the agent must ask for useful missing
   details before drafting when they would make the note, calorie estimates, or
   later Weekly Review better.
+- Do not ask for a detail that is already answered by `User Profile.md`, unless
+  the current note contradicts that default.
 - For calories, distinguish `calories_in` from food and
   `exercise_calories_out` from activity. Do not present basal metabolic rate,
   total daily energy expenditure, or net balance unless the user provided enough
@@ -75,6 +81,13 @@ Recommended: <what to answer if they know it, or `skip` if they do not>.
 Reply with the answer, `skip`, or `done`.
 ```
 
+If a likely stable habit would avoid future questions, add one final line:
+
+```markdown
+Profile: if this is your usual default, reply `save: <default>` and I will add it
+to `User Profile.md`.
+```
+
 After each answer, decide whether another question would materially change the
 note. Stop the loop and draft when:
 
@@ -87,3 +100,15 @@ note. Stop the loop and draft when:
 If the user answers with partial details, incorporate them and ask the next
 highest-leverage question only if it still matters. Keep skipped questions in
 the note's `Optional Questions` section.
+
+## User Profile
+
+Use `Fitness/User Profile.md` for confirmed defaults only. Good defaults include:
+
+- cooked vs dry weights for rice, lentils, pasta, oats, or similar staples;
+- preferred units;
+- usual interpretation of activity labels such as `EF`;
+- whether calorie estimates should be included by default.
+
+Never save sensitive body goals, medical context, or nutrition targets as a
+default unless the user explicitly asks.
