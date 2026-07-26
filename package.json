@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate-skills.mjs"
+    "test": "node scripts/validate-skills.self-test.mjs && node scripts/validate-skills.mjs"
   }
 }
