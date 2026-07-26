@@ -131,20 +131,24 @@ User confirmation required:
 - Move existing notes.
 - Delete files or folders.
 - Rewrite existing note frontmatter.
-- Convert historical string fields into numeric fields.
+- Normalize historical field formats.
 - Replace content inside `Fitness Index.md`, `User Profile.md`, or any user note.
 
 When a historical note uses an old convention, leave it intact and report a
 suggested migration. Example: if old Daily Notes use `pace: "6:20/km"`, suggest
-adding `pace_sec_per_km: 380` only after user confirmation.
+normalizing future entries to `pace: 6:20` and only rewrite old notes after user
+confirmation. Do not add derived fields such as `speed_kmh` during setup.
 
-Version upgrades should be additive. A user on V0.2 should be able to install
-V0.3, rerun Setup, and continue using the same vault.
+Version upgrades should be additive and generic. A user on any older structure
+version should be able to install a newer skill version, rerun Setup, and
+continue using the same vault. Setup should detect the recorded
+`structure_version`, compare it with the current structure, add missing managed
+pieces, update the manifest, and report any migrations that require consent.
 
 ## Version History
 
-- `0.3`: Adds `Fitness Skills.md` manifest, `User Profile.md`, and calculable
-  numeric daily fields for future dataviz.
+- `0.3`: Adds `Fitness Skills.md` manifest, `User Profile.md`, and clearer
+  rerun-safe migration rules.
 
 ## Dated Fitness Notes
 
@@ -161,9 +165,11 @@ date: YYYY-MM-DD
 ---
 ```
 
-Daily note frontmatter should store future dataviz values as numbers with units
-in the field name, not display strings. Example: use `pace_sec_per_km: 380` for
-a `6:20/km` pace.
+Daily note frontmatter should store source facts rather than dashboard-only
+derived values. Use numbers with units in the field name for simple numeric
+facts, such as `distance_km: 9`, `duration_min: 57`, and
+`heart_rate_bpm: 145`. Store pace as the compact logged value, e.g.
+`pace: 6:20`; dashboards can derive alternate representations later.
 
 Meal Notes:
 

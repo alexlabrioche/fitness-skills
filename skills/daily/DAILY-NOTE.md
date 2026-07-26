@@ -21,7 +21,7 @@ activities:
   - type: run
     distance_km: 9
     duration_min: 57
-    pace_sec_per_km: 380
+    pace: 6:20
     heart_rate_bpm: 145
     rpe_1_10: 3
 meals:
@@ -122,19 +122,18 @@ are logged as cooked weight unless stated otherwise, do not keep
 ## Dataview-Friendly Guidance
 
 - Put stable, queryable facts in frontmatter when they are known.
-- Every field intended for future dataviz should be calculable. Store numeric
-  values as numbers, not display strings.
-- Treat frontmatter as the analytics layer and the Markdown body as the display
-  layer.
+- Keep frontmatter focused on source facts: values the user gave, device values,
+  and useful estimates. Do not crowd the note with fields that can be derived
+  later.
+- Store numeric source values as numbers when the unit is simple and stable.
 - Use prose in the body for readability, not as the only place important values
   live.
 - Prefer numeric values with dot decimals in frontmatter, for example
   `weight_kg: 77.6`.
-- Store pace as `pace_sec_per_km`, not `"6:20/km"`. Display `6:20/km` in the
-  Markdown table if useful for humans.
-- Store derived fields like `speed_kmh` only when the user or device provides
-  them, or when the dashboard explicitly needs denormalized values. Otherwise,
-  let Dataview compute them from `distance_km` and `duration_min`.
+- Store running pace as the user's compact pace value, e.g. `pace: 6:20`.
+  Dashboards can parse or derive seconds per kilometer later when needed.
+- Do not add derived fields like `speed_kmh` or `pace_sec_per_km` to Daily Notes
+  unless the user explicitly asks for denormalized analytics fields.
 - Omit unknown numeric fields from frontmatter. Track the gap in `missing_info`
   instead of writing `unknown`.
 - Prefer `*_min` and `*_max` fields for uncertain numeric ranges.
@@ -147,9 +146,7 @@ are logged as cooked weight unless stated otherwise, do not keep
 
 - Distances: kilometers as numbers, e.g. `distance_km: 9`.
 - Durations: minutes as numbers, e.g. `duration_min: 57`.
-- Pace: seconds per kilometer as a number, e.g. `pace_sec_per_km: 380` for
-  `6:20/km`.
-- Speed: kilometers per hour as a number, e.g. `speed_kmh: 9.47`.
+- Pace: compact minute-second pace as entered by the user, e.g. `pace: 6:20`.
 - Heart rate: beats per minute as a number, e.g. `heart_rate_bpm: 145`.
 - RPE: number on the user's chosen scale, usually `rpe_1_10`.
 - Subjective scores: use explicit numeric scales, e.g. `energy_level_1_5: 3`,
@@ -157,8 +154,9 @@ are logged as cooked weight unless stated otherwise, do not keep
 - Calories: kcal as numbers, using `_min` and `_max` for ranges.
 - Weight: kilograms as a number, e.g. `weight_kg: 77.6`.
 
-Human-readable strings like `6:20/km`, `57 min`, or `77.6 kg` belong in Markdown
-tables or prose, not as the only queryable value.
+Human-readable strings with units like `57 min`, `77.6 kg`, or `145 bpm` belong
+in Markdown tables or prose, not frontmatter. Pace is the exception: keep it as
+`pace: M:SS` because it is the user's logged source value.
 
 ## Calculable Field Examples
 
@@ -169,7 +167,7 @@ activities:
   - type: run
     distance_km: 9
     duration_min: 57
-    pace_sec_per_km: 380
+    pace: 6:20
     heart_rate_bpm: 145
     rpe_1_10: 3
 missing_info:
@@ -183,7 +181,8 @@ activities:
   - type: run
     distance: "9 km"
     duration: "57 min"
-    pace: "6:20/km"
+    pace_sec_per_km: 380
+    speed_kmh: 9.47
     heart_rate: "145 bpm"
     rpe: "easy"
     recovery: unknown

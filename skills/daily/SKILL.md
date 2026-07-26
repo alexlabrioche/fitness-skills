@@ -54,13 +54,15 @@ Structure.
   `exercise_calories_out` from activity. Do not present basal metabolic rate,
   total daily energy expenditure, or net balance unless the user provided enough
   profile/context or explicitly asked.
-- Store dataviz-oriented values in calculable numeric fields. For example, pace
-  goes in `pace_sec_per_km`; `6:20/km` can appear in the Markdown body for
-  readability, but not as the only stored value.
-- Do not put display strings in dataviz frontmatter fields. Avoid values like
-  `"6:20/km"`, `"77.6 kg"`, `"57 min"`, or `"145 bpm"` in frontmatter.
-- Use field names to carry units, such as `_kg`, `_km`, `_min`,
-  `_sec_per_km`, `_bpm`, and `_kcal`.
+- Keep Daily frontmatter focused on source facts, not dashboard-only derived
+  fields.
+- Store simple numeric values in calculable fields with units in their names,
+  such as `_kg`, `_km`, `_min`, `_bpm`, and `_kcal`.
+- Store running pace as the user's compact source value, e.g. `pace: 6:20`.
+  Do not add `pace_sec_per_km` or `speed_kmh` unless the user explicitly asks
+  for derived analytics fields.
+- Do not put display strings with units in dataviz frontmatter fields. Avoid
+  values like `"77.6 kg"`, `"57 min"`, or `"145 bpm"` in frontmatter.
 - Omit unknown numeric fields from frontmatter and list the gap in
   `missing_info`; do not store `"unknown"` in a numeric field.
 - If updating an existing Daily Note, preserve existing content unless the user
